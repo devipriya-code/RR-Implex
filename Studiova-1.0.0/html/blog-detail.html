@@ -7,7 +7,7 @@
     <link
       rel="shortcut icon"
       type="image/png"
-      href="../assets/images/portfolio/palette-favv[1].png"
+      href="../assets/images/logos/RR-fav icon -1.png"
     />
     <link
       rel="stylesheet"
@@ -32,7 +32,7 @@
           <div class="logo">
             <a href="index.html" class="logo-white">
               <img
-                src="../assets/images/logos/Asset 4.png"
+                src="../assets/images/logos/RR-logo.png"
                 alt="logo"
                 class="img-fluid"
                 style="width: 180px; height: 60px"
@@ -40,7 +40,7 @@
             </a>
             <a href="index.html" class="logo-dark" style="display: none">
               <img
-                src="../assets/images/logos/Asset 1.png"
+                src="../assets/images/logos/Asset 5@4x[1].png"
                 alt="logo"
                 class="img-fluid"
                 style="width: 180px; height: 50px"
@@ -142,54 +142,53 @@
       }
 
       /* ---------- MOBILE + TABLET ---------- */
-     /* ---------- MOBILE + TABLET ---------- */
-@media (max-width: 991px) {
-  .menu-toggle {
-    display: block;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-  }
+      @media (max-width: 991px) {
+        .menu-toggle {
+          display: block;
+          font-size: 28px;
+          color: white;
+          cursor: pointer;
+        }
 
-  #headerMenu {
-    display: none !important;
-    flex-direction: column;
-    align-items: flex-start; /* keep items aligned to left inside menu */
-    background-color: #111;
-    padding: 20px;
-    border-radius: 12px;
-    position: absolute;
-    top: 100%;
-    right: 10px; /* move menu to right */
-    width: 80%;
-    max-width: 320px;
-    z-index: 999;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-  }
+        #headerMenu {
+          display: none !important;
+          flex-direction: column;
+          align-items: flex-start; /* keep items aligned to left inside menu */
+          background-color: #111;
+          padding: 20px;
+          border-radius: 12px;
+          position: absolute;
+          top: 100%;
+          right: 10px; /* move menu to right */
+          width: 80%;
+          max-width: 320px;
+          z-index: 999;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          transition: all 0.3s ease;
+        }
 
-  #headerMenu.active {
-    display: flex !important;
-    animation: slideDownRight 0.4s ease forwards;
-  }
+        #headerMenu.active {
+          display: flex !important;
+          animation: slideDownRight 0.4s ease forwards;
+        }
 
-  @keyframes slideDownRight {
-    from {
-      opacity: 0;
-      transform: translateY(-10px) translateX(50px); /* slide from right */
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) translateX(0);
-    }
-  }
+        @keyframes slideDownRight {
+          from {
+            opacity: 0;
+            transform: translateY(-10px) translateX(50px); /* slide from right */
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) translateX(0);
+          }
+        }
 
-  /* Spinner appears only on hover */
-  .menu-item a:hover .spin-icon {
-    opacity: 1;
-    animation: spin 1.5s linear infinite;
-  }
-}
+        /* Spinner appears only on hover */
+        .menu-item a:hover .spin-icon {
+          opacity: 1;
+          animation: spin 1.5s linear infinite;
+        }
+      }
 
       /* ---------- DESKTOP ---------- */
       @media (min-width: 992px) {
