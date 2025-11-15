@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Palette</title>
+
+   <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/RR-fav icon -1.png"
+    />
+    <link
+      rel="stylesheet"
+      href="../assets/libs/owl.carousel/dist/assets/owl.carousel.min.css"
+    />
+    <link rel="stylesheet" href="../assets/libs/aos-master/dist/aos.css" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+  <!-- GSAP + ScrollTrigger from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --progress: 0;
+      --title-size-desktop: 3vw;
+      --title-size-mobile: 9vw;
+    }
+
+    /* Basic wrapper to allow pinch of content above/below the section */
+    .wrapper {
+      min-height: 300vh; /* enough scroll to see effect — adjust as needed */
+      position: relative;
+      background: linear-gradient(180deg,#fff,#fafafa);
+    }
+
+    .content {
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    /* THE SECTION */
+
+    .section {
+      position: relative;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+
+    /* Media (background and layered fronts) */
+    .section__media {
+      position:absolute;
+      inset:0;
+      z-index:1;
+      transform: scale(var(--progress,1));
+      transition: transform .1s linear;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .section__media__back,
+    .section__media__front {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+    }
+
+    .section__media__back img,
+    .section__media__front img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+    }
+
+    /* front layers are masked + blurred initially */
+    .section__media__front {
+      filter: blur(2px);
+      mix-blend-mode:normal;
+    }
+
+    /* scale steps for front layers (largest to smallest) */
+    .front-1 { transform: scale(1); }
+    .front-2 { transform: scale(0.85); }
+    .front-3 { transform: scale(0.65); }
+    .front-4 { transform: scale(0.45); }
+    .front-5 { transform: scale(0.30); }
+    .front-6 { transform: scale(0.15); }
+
+    /* small floating images (the orbiting thumbnails) */
+    .section__images {
+      position:absolute;
+      inset:0;
+      width:100vw;
+      height:100vh;
+      perspective:100vh;
+      z-index:2;
+      pointer-events:none;
+    }
+
+    .section__images img {
+      position:absolute;
+      width:10vw;
+      height:auto;
+      transform-origin:center center;
+      will-change:transform;
+    }
+
+    @media (max-width:768px) {
+      .section__images img { width:20vw; }
+    }
+
+    /* positions for the 10 thumbnails — these match the original demo placement */
+    .section__images img:nth-of-type(1) { top:15vw; left:-3vw; }
+    .section__images img:nth-of-type(2) { top:5vw; left:20vw; }
+    .section__images img:nth-of-type(3) { top:8vw; left:26.5vw; }
+    .section__images img:nth-of-type(4) { top:18vw; right:18vw; }
+    .section__images img:nth-of-type(5) { top:5vw; right:10vw; }
+    .section__images img:nth-of-type(6) { bottom:5vw; left:10vw; }
+    .section__images img:nth-of-type(7) { bottom:8vw; left:22.5vw; }
+    .section__images img:nth-of-type(8) { bottom:3vw; left:45vw; }
+    .section__images img:nth-of-type(9) { bottom:5vw; right:15vw; }
+    .section__images img:nth-of-type(10){ bottom:9vw; right:7vw; }
+
+    /* Title / Split text */
+    .frame {
+      position:relative;
+      z-index:3;
+      text-align:center;
+      pointer-events:auto;
+    }
+
+    .frame__title {
+      margin:0;
+      font-size:var(--title-size-desktop);
+      font-weight:600;
+      transform:translateY(-15%);
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      align-items:center;
+      line-height:1;
+    }
+
+    .frame__title .left, .frame__title .right {
+      display:inline-block;
+      backface-visibility:hidden;
+      white-space:nowrap;
+    }
+
+    @media (max-width:768px) {
+      .frame__title { font-size:var(--title-size-mobile); }
+    }
+
+    /* small visual polish */
+    a.frame__link { color:inherit; text-decoration:none; opacity:0.8; font-weight:500; }
+    body.loading { cursor:progress; }
+  </style>
+
+
+<body class="loading">
+  <main class="wrapper">
+   
+      <section class="section" id="section-zoom">
+        <!-- media layers -->
+        <div class="section__media">
+          <div class="section__media__back">
+            <img src="../assets/images/portfolio/13.jpg" alt="background" />
+          </div>
+
+          <!-- front layers: we reuse the same image but scaled differently to mimic the demo -->
+          <div class="section__media__front front-1"><img src="../assets/images/portfolio/13.jpg" alt="" /></div>
+          <div class="section__media__front front-2"><img src="../assets/images/portfolio/13.jpg" alt="" /></div>
+          <div class="section__media__front front-3"><img src="../assets/images/portfolio/13.jpg" alt="" /></div>
+          <div class="section__media__front front-4"><img src="../assets/images/portfolio/13.jpg" alt="" /></div>
+          <div class="section__media__front front-5"><img src="../assets/images/portfolio/13.jpg" alt="" /></div>
+          <div class="section__media__front front-6"><img src="../assets/images/portfolio/13.jpg" alt="" /></div>
+        </div>
+
+        <!-- floating thumbnails (you can replace these src with smaller images for perf) -->
+        <div class="section__images" aria-hidden="true">
+          <!-- Using the same image here — ideally use small thumbnails for performance -->
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+          <img src="../assets/images/portfolio/13.jpg" alt="" />
+        </div>
+
+        <!-- Title / split text -->
+        <div class="frame" role="banner">
+          <h1 class="frame__title">
+            <span class="left">About</span>
+            <span class="right">Ur Company</span>
+          </h1>
+        </div>
+      </section>
+
+    <!-- About Content Section -->
+<section class="about-content-palette" style="padding: 3rem 0;">
+  <div class="container" style="max-width: 1140px; margin: 0 auto;">
+    <div style="display: flex; flex-direction: column; gap: 3rem;">
+      
+      <!-- Title Row -->
+      <div class="row" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        <div class="col-lg-4" style="flex: 0 0 auto; width: 33.333%;">
+          <h2 style="font-size: 2rem; margin: 0;" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000">
+            Palette
+          </h2>
+        </div>
+
+        <div class="col-lg-8" style="flex: 0 0 auto; width: 66.666%;">
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+            <p style="margin: 0; font-size: 1.25rem; color: #222;">
+              Every fabric tells a story — a blend of texture, color, and
+              craftsmanship. It’s your opportunity to turn creativity into
+              wearable art. From bold new patterns to timeless classics, each
+              creation reflects passion, precision, and purpose. As fashion
+              evolves, so do the possibilities — and bringing every idea to
+              life is what makes the journey truly rewarding.
+            </p>
+
+            <p style="margin: 0; font-size: 1.25rem; color: #222;">
+              At <strong>Palette Production</strong>, we transform imagination
+              into reality through a range of services: textile design,
+              garment manufacturing, custom tailoring, and premium fabric
+              solutions. Our team blends artistry with innovation to craft
+              collections that inspire confidence and comfort. Each day brings
+              something fresh — new designs, new textures, and new ways to
+              redefine modern style.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="row" style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+        
+        <!-- Block 1 -->
+        <div style="flex: 0 0 auto; width: 33.333%; margin-bottom: 2rem;">
+          <div style="display: flex; flex-direction: column; gap: 2rem;" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+            <h2 style="margin: 0; font-size: 3rem; padding-bottom: 1rem; border-bottom: 1px solid #000;">
+              <span class="count" data-target="45">45</span>+
+            </h2>
+            <div style="display: flex; flex-direction: column; gap: .75rem;">
+              <h4 style="margin: 0;">Years of craftsmanship</h4>
+              <p style="margin: 0;">
+                Honoring decades of expertise in weaving premium fabrics
+                and creating timeless textile designs that redefine
+                quality and comfort.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Block 2 -->
+        <div style="flex: 0 0 auto; width: 33.333%; margin-bottom: 2rem;">
+          <div style="display: flex; flex-direction: column; gap: 2rem;" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+            <h2 style="margin: 0; font-size: 3rem; padding-bottom: 1rem; border-bottom: 1px solid #000;">
+              <span class="count" data-target="15">15</span>K
+            </h2>
+            <div style="display: flex; flex-direction: column; gap: .75rem;">
+              <h4 style="margin: 0;">Meters produced monthly</h4>
+              <p style="margin: 0;">
+                Delivering high-quality fabrics at scale — combining
+                precision, sustainability, and innovation in every weave.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Block 3 -->
+        <div style="flex: 0 0 auto; width: 33.333%; margin-bottom: 2rem;">
+          <div style="display: flex; flex-direction: column; gap: 2rem;" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+            <h2 style="margin: 0; font-size: 3rem; padding-bottom: 1rem; border-bottom: 1px solid #000;">
+              <span class="count" data-target="158">158</span>+
+            </h2>
+            <div style="display: flex; flex-direction: column; gap: .75rem;">
+              <h4 style="margin: 0;">Trusted fashion partners</h4>
+              <p style="margin: 0;">
+                Collaborating with leading designers and global apparel
+                brands to deliver premium fabrics that inspire every
+                collection.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+      <!--  About Img Section -->
+      <section class="about-img">
+        <img
+          src="../assets/images/about/about-img.jpg"
+          alt="Fabric Collection Banner"
+          class="w-100 object-fit-cover"
+        />
+        <div
+          class="marquee w-100 d-flex align-items-center overflow-hidden bg-primary py-4"
+        >
+          <div class="marquee-content d-flex align-items-center gap-8">
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Premium Fabrics</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Custom Tailoring</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Textile Manufacturing</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Fabric Printing</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Embroidery Design</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Garment Production</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Sustainable Textiles</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Fashion Designing</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Fabric Dyeing</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+            <div class="hstack gap-4 flex-shrink-0">
+              <h4 class="mb-0">Quality Craftsmanship</h4>
+              <span
+                class="round-10 bg-dark bg-opacity-10 rounded-circle flex-shrink-0"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--  Meet our team Section -->
+      <section class="meet-our-team py-5 py-lg-11 py-xl-12">
+        <div class="container">
+          <div class="d-flex flex-column gap-5 gap-xl-11">
+            <div class="row gap-7 gap-xl-0">
+              <div class="col-xl-4 col-xxl-4">
+                <div
+                  class="d-flex align-items-center gap-7 py-2"
+                  data-aos="fade-right"
+                  data-aos-delay="100"
+                  data-aos-duration="1000"
+                >
+                  <hr class="border-line bg-white" />
+                  <span class="badge text-bg-dark">Our Experts</span>
+                </div>
+              </div>
+              <div class="col-xl-8 col-xxl-7">
+                <div class="row">
+                  <div class="col-xxl-8">
+                    <div
+                      class="d-flex flex-column gap-6"
+                      data-aos="fade-up"
+                      data-aos-delay="100"
+                      data-aos-duration="1000"
+                    >
+                      <h2 class="mb-0">Collections</h2>
+                      <p class="fs-5 mb-0 text-opacity-70">
+                        Our fabric collections showcase the perfect harmony of
+                        craftsmanship and creativity. Each material is carefully
+                        curated for its texture, durability, and aesthetic
+                        appeal. From luxurious silks to contemporary blends,
+                        every collection reflects our commitment to quality,
+                        elegance, and innovation — designed to inspire designers
+                        and elevate every creation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Members -->
+            <div class="row">
+              <div class="col-md-6 col-xl-3 mb-7 mb-xl-0">
+                <div
+                  class="meet-team d-flex flex-column gap-4"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                  data-aos-duration="1000"
+                >
+                  <div class="meet-team-img position-relative overflow-hidden">
+                    <img
+                      src="../assets/images/portfolio/3.jpg"
+                      alt="team-img"
+                      class="img-fluid w-100"
+                    />
+                    <div
+                      class="meet-team-overlay p-7 d-flex flex-column justify-content-end"
+                    >
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-xl-3 mb-7 mb-xl-0">
+                <div
+                  class="meet-team d-flex flex-column gap-4"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                  data-aos-duration="1000"
+                >
+                  <div class="meet-team-img position-relative overflow-hidden">
+                    <img
+                      src="../assets/images/portfolio/7.jpg"
+                      alt="team-img"
+                      class="img-fluid w-100"
+                    />
+                    <div
+                      class="meet-team-overlay p-7 d-flex flex-column justify-content-end"
+                    >
+                     
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <div class="col-md-6 col-xl-3 mb-7 mb-xl-0">
+                <div
+                  class="meet-team d-flex flex-column gap-4"
+                  data-aos="fade-up"
+                  data-aos-delay="400"
+                  data-aos-duration="1000"
+                >
+                  <div class="meet-team-img position-relative overflow-hidden">
+                    <img
+                      src="../assets/images/portfolio/6.jpg"
+                      alt="team-img"
+                      class="img-fluid w-100"
+                    />
+                    <div
+                      class="meet-team-overlay p-7 d-flex flex-column justify-content-end"
+                    >
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+   
+
+    <footer class="footer bg-dark py-5 py-lg-11 py-xl-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5 mb-8 mb-xl-0">
+            <div class="d-flex flex-column gap-8 pe-xl-5">
+              <h2 class="mb-0 text-white">Ready to weave success together?</h2>
+              <div class="d-flex flex-column gap-2">
+                <a
+                  href="https://www.paletteproduction.com/"
+                  target="_blank"
+                  class="link-hover hstack gap-3 text-white fs-5"
+                >
+                  <iconify-icon
+                    icon="lucide:arrow-up-right"
+                    class="fs-7 text-primary"
+                  ></iconify-icon>
+                  info@paletteproduction.com
+                </a>
+                <a
+                  href="https://maps.app.goo.gl/hpDp81fqzGt5y4bC8"
+                  target="_blank"
+                  class="link-hover hstack gap-3 text-white fs-5"
+                >
+                  <iconify-icon
+                    icon="lucide:map-pin"
+                    class="fs-7 text-primary"
+                  ></iconify-icon>
+                  info@paletteproduction.com
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-xl-2 mb-8 mb-xl-0">
+            <ul class="footer-menu list-unstyled mb-0 d-flex flex-column gap-2">
+              <li>
+                <a class="link-hover fs-5 text-white" href="index.html">Home</a>
+              </li>
+              <li>
+                <a class="link-hover fs-5 text-white" href="about-us.html"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  class="link-hover fs-5 text-white"
+                  id="services"
+                  href="#services"
+                  >Services</a
+                >
+              </li>
+              <li>
+                <a class="link-hover fs-5 text-white" href="projects.html"
+                  >Work</a
+                >
+              </li>
+              <li>
+                <a
+                  class="link-hover fs-5 text-white"
+                  href="terms-and-conditions.html"
+                  >Terms</a
+                >
+              </li>
+              <li>
+                <a class="link-hover fs-5 text-white" href="privacy-policy.html"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a class="link-hover fs-5 text-white" href="404.html"
+                  >Error 404</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-xl-2 mb-8 mb-xl-0">
+            <ul class="footer-menu list-unstyled mb-0 d-flex flex-column gap-2">
+              <li>
+                <a class="link-hover fs-5 text-white" href="#!">Facebook</a>
+              </li>
+              <li>
+                <a class="link-hover fs-5 text-white" href="#!">Instagram</a>
+              </li>
+              <li>
+                <a class="link-hover fs-5 text-white" href="#!">Twitter</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-xl-3 mb-8 mb-xl-0">
+            <p class="mb-0 text-white text-opacity-70 text-md-end">
+              © Palette copyright 2025
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+<!-- 
+    <div class="get-template hstack gap-2">
+      <button
+        class="btn bg-primary p-2 round-52 rounded-circle hstack justify-content-center flex-shrink-0"
+        id="scrollToTopBtn"
+      >
+        <iconify-icon
+          icon="lucide:arrow-up"
+          class="fs-7 text-dark"
+        ></iconify-icon>
+      </button>
+    </div> -->
+
+  </main>
+
+  <script>
+
+    
+    // Wait for images to load (simple helper)
+    function preload(selector = "img") {
+      const imgs = Array.from(document.querySelectorAll(selector));
+      const promises = imgs.map((img) => {
+        return new Promise((resolve) => {
+          if (img.complete) return resolve();
+          img.addEventListener("load", resolve);
+          img.addEventListener("error", resolve);
+        });
+      });
+      return Promise.all(promises);
+    }
+
+    (function () {
+      const section = document.querySelector(".section");
+      const frontImages = section.querySelectorAll(".section__media__front");
+      const smallImages = section.querySelectorAll(".section__images img");
+      const titleLeft = document.querySelector(".frame__title .left");
+      const titleRight = document.querySelector(".frame__title .right");
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // set some initial styles for 3D
+      gsap.set(smallImages, {
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
+        force3D: true
+      });
+
+      // helper to set CSS var --progress (0..1) used by CSS transforms
+      function setProgress(val) {
+        section.style.setProperty("--progress", val);
+      }
+
+      preload().then(() => {
+        document.body.classList.remove("loading");
+
+        // main timeline driven by ScrollTrigger
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.8,
+            pin: true,
+            onUpdate(self) {
+              // eased progress for nicer motion
+              const eased = gsap.parseEase("power1.inOut")(self.progress);
+              setProgress(eased);
+            },
+          }
+        });
+
+        // small images fly forward (z) and rotate slightly
+        tl.to(smallImages, {
+          z: 800,        // push forward in 3D
+          rotationX: 6,
+          rotationY: 6,
+          duration: 1.0,
+          ease: "power1.inOut",
+          stagger: { amount: 0.35, from: "center" }
+        }, 0);
+
+        // front layer scale -> they are already scaled via CSS; animate their scale to 1 to "flatten" them
+        tl.to(frontImages, {
+          scale: 1,
+          duration: 1.0,
+          ease: "power1.inOut",
+          stagger: { amount: 0.25, from: "end" }
+        }, 0.3);
+
+        // front layers go from blur(2px) to blur(0)
+        tl.to(frontImages, {
+          filter: "blur(0px)",
+          duration: 1.0,
+          ease: "power1.inOut",
+          stagger: { amount: 0.25, from: "end" }
+        }, 0.45);
+
+        // text split animation: left moves left, right moves right
+        tl.to(titleLeft, {
+          x: () => `calc(-1 * (${Math.min(window.innerWidth * 0.66, 800)}px))`,
+          duration: 1,
+          ease: "power1.inOut"
+        }, 0);
+
+        tl.to(titleRight, {
+          x: () => `calc(${Math.min(window.innerWidth * 0.66, 800)}px)`,
+          duration: 1,
+          ease: "power1.inOut"
+        }, 0);
+
+        // also animate the overall media scale a bit (subtle)
+        tl.to(section.querySelector(".section__media"), {
+          scale: 1.02,
+          duration: 1.2,
+          ease: "power1.inOut"
+        }, 0.2);
+
+        // Accessibility: update tab order if needed (not strictly necessary)
+      });
+    })();
+  </script>
+
+
+</body>
+</html>  
