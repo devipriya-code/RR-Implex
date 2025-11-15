@@ -21,8 +21,8 @@
     <!-- Header -->
     <header
       id="mainHeader"
-      class="header border-4 border-primary border-top position-fixed start-0 top-0 w-100"
-      style="transition: all 0.3s ease; z-index: 999"
+      class="header position-fixed top-0 start-0 w-100"
+      style="z-index: 999"
     >
       <div class="container">
         <div
@@ -33,369 +33,61 @@
             <a href="index.html" class="logo-white">
               <img
                 src="../assets/images/logos/RR-logo.png"
-                alt="logo"
-                class="img-fluid"
                 style="width: 150px; height: 60px"
               />
             </a>
             <a href="index.html" class="logo-dark" style="display: none">
               <img
                 src="../assets/images/logos/Asset 5@4x[1].png"
-                alt="logo"
-                class="img-fluid"
                 style="width: 180px; height: 60px"
               />
             </a>
           </div>
 
-          <!-- Hamburger Icon -->
-          <div class="menu-toggle" id="mobileMenuToggle">&#9776;</div>
+          <!-- Hamburger -->
+          <div id="mobileMenuToggle" class="menu-toggle">&#9776;</div>
 
           <!-- Menu -->
-          <ul
-            id="headerMenu"
-            class="d-flex align-items-center gap-4 list-unstyled mb-0"
-            style="display: none"
-          >
-            <li class="menu-item">
-              <a href="index.html" style="color: white">
-                Home
-                <img
-                  src="../assets/images/svgs/primary-leaf.svg"
-                  alt=""
-                  class="spin-icon"
-                />
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="about-us.html" style="color: white">
-                About
-                <img
-                  src="../assets/images/svgs/primary-leaf.svg"
-                  alt=""
-                  class="spin-icon"
-                />
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="projects.html" style="color: white">
+          <ul id="headerMenu" class="main-menu list-unstyled mb-0">
+            <li class="menu-item"><a href="index.html">Home</a></li>
+            <li class="menu-item"><a href="about-us.html">About</a></li>
+
+            <!-- DROPDOWN -->
+            <li class="menu-item dropdown" id="productsMenu">
+              <a href="javascript:void(0)" class="dropdown-btn">
                 Products
-                <img
-                  src="../assets/images/svgs/primary-leaf.svg"
-                  alt=""
-                  class="spin-icon"
-                />
+                <iconify-icon
+                  icon="mdi:chevron-down"
+                  class="dropdown-arrow"
+                ></iconify-icon>
               </a>
+
+              <ul class="dropdown-menu-custom multi-column-dropdown">
+                <li><a>SINGLE JERSEY</a></li>
+                <li><a>AIRTEX</a></li>
+                <li><a>INTERLOCK KNITS</a></li>
+                <li><a>TRANSFER KNITS</a></li>
+                <li><a>AUTO STRIPER</a></li>
+                <li><a>JACQUARD</a></li>
+                <li><a>LYCRA FABRICS</a></li>
+                <li><a>LOOP KNIT</a></li>
+                <li><a>ALL OVER PRINTS</a></li>
+                <li><a>SLUB</a></li>
+                <li><a>COLOUR MELANGES</a></li>
+                <li><a>GRINDLE</a></li>
+                <li><a>RECYCLED OE FABRIC</a></li>
+                <li><a>TENCIL KNITS</a></li>
+                <li><a>VARIOUS OTHER FANCY FABRICS</a></li>
+              </ul>
             </li>
-            <li class="menu-item">
-              <a href="blog.html" style="color: white">
-                Blog
-                <img
-                  src="../assets/images/svgs/primary-leaf.svg"
-                  alt=""
-                  class="spin-icon"
-                />
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="services.html" style="color: white">
-                Services
-                <img
-                  src="../assets/images/svgs/primary-leaf.svg"
-                  alt=""
-                  class="spin-icon"
-                />
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="contact.html" style="color: white">
-                Contact
-                <img
-                  src="../assets/images/svgs/primary-leaf.svg"
-                  alt=""
-                  class="spin-icon"
-                />
-              </a>
-            </li>
+
+            <li class="menu-item"><a href="blog.html">Blog</a></li>
+            <li class="menu-item"><a href="services.html">Services</a></li>
+            <li class="menu-item"><a href="contact.html">Contact</a></li>
           </ul>
         </div>
       </div>
     </header>
-
-    <style>
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .spin-icon {
-        width: 20px;
-        height: 20px;
-        margin-left: 6px;
-        vertical-align: middle;
-        opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-
-      /* ---------- MOBILE + TABLET ---------- */
-      @media (max-width: 991px) {
-        .menu-toggle {
-          display: block;
-          font-size: 28px;
-          color: white;
-          cursor: pointer;
-        }
-
-        #headerMenu {
-          display: none !important;
-          flex-direction: column;
-          align-items: flex-start; /* keep items aligned to left inside menu */
-          background-color: #111;
-          padding: 20px;
-          border-radius: 12px;
-          position: absolute;
-          top: 100%;
-          right: 10px; /* move menu to right */
-          width: 80%;
-          max-width: 300px;
-          z-index: 999;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-          transition: all 0.3s ease;
-        }
-
-        #headerMenu.active {
-          display: flex !important;
-          animation: slideDownRight 0.4s ease forwards;
-        }
-
-        @keyframes slideDownRight {
-          from {
-            opacity: 0;
-            transform: translateY(-10px) translateX(50px); /* slide from right */
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) translateX(0);
-          }
-        }
-
-        /* Spinner appears only on hover */
-        .menu-item a:hover .spin-icon {
-          opacity: 1;
-          animation: spin 1.5s linear infinite;
-        }
-      }
-
-      /* ---------- DESKTOP ---------- */
-      @media (min-width: 992px) {
-        @media (min-width: 769px) {
-          #headerMenu .menu-item a {
-            font-size: 25px; /* increase for desktop */
-            font-weight: 500; /* optional: make it bolder */
-          }
-        }
-
-        .menu-toggle {
-          display: none;
-        }
-        #headerMenu {
-          display: flex !important;
-        }
-        .spin-icon {
-          display: none !important;
-        }
-      }
-      :root {
-        --body-color: #010c15;
-        --text-color: #726f77;
-        --primary-color: rgba(223, 31, 14);
-        --secondary-color: rgba(223, 31, 14);
-
-        --size: 120px;
-        --circle-radius: 210px; /* distance from center */
-        --duration: 30s;
-      }
-
-      .circle-container {
-        width: calc(var(--size) * 3);
-        height: calc(var(--size) * 3);
-        border-radius: 50%;
-        border: 6px solid var(--primary-color);
-        animation: spin-out var(--duration) linear infinite;
-        transition: box-shadow 0.3s ease-in-out;
-        pointer-events: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1;
-        margin-top: 80px;
-      }
-
-      /* ROTATING ITEMS */
-      .circle-container .item {
-        position: absolute;
-        width: var(--size);
-        height: var(--size);
-        border-radius: 50%;
-        animation: spin-in var(--duration) linear infinite reverse;
-        pointer-events: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      /* FIXED POSITIONS (6 items = 360/6 = 60 degrees each) */
-      .circle-container .item:nth-child(1) {
-        transform: rotate(0deg) translate(var(--circle-radius)) rotate(0deg);
-      }
-      .circle-container .item:nth-child(2) {
-        transform: rotate(60deg) translate(var(--circle-radius)) rotate(-60deg);
-      }
-      .circle-container .item:nth-child(3) {
-        transform: rotate(120deg) translate(var(--circle-radius))
-          rotate(-120deg);
-      }
-      .circle-container .item:nth-child(4) {
-        transform: rotate(180deg) translate(var(--circle-radius))
-          rotate(-180deg);
-      }
-      .circle-container .item:nth-child(5) {
-        transform: rotate(240deg) translate(var(--circle-radius))
-          rotate(-240deg);
-      }
-      .circle-container .item:nth-child(6) {
-        transform: rotate(300deg) translate(var(--circle-radius))
-          rotate(-300deg);
-      }
-
-      /* IMAGES */
-      .circle-container .item img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        border: 3px solid var(--primary-color);
-        transition: 0.3s ease-in-out;
-      }
-
-      /* HOVER ZOOM */
-      .circle-container .item:hover img {
-        scale: 1.6;
-        border-color: var(--secondary-color);
-        z-index: 50;
-        box-shadow: 0 0 1rem var(--secondary-color);
-      }
-
-      /* Dim all other items */
-      .circle-container .item:hover ~ .item img,
-      .circle-container .item:has(~ .item:hover) img {
-        scale: 0.5;
-      }
-
-      /* CENTER SQUARE (same as original) */
-      .circle-container::before {
-        content: "";
-        position: absolute;
-        width: var(--size);
-        height: var(--size);
-        border-radius: 0.25rem;
-        border: 6px solid var(--primary-color);
-        background: transparent;
-        transition: 0.3s ease-in-out;
-      }
-
-      /* OUTER EFFECT */
-      .circle-container::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: inherit;
-        border: 6px solid var(--primary-color);
-        animation: spin-in var(--duration) linear infinite reverse;
-        transition: 0.3s ease-in-out;
-      }
-
-      /* PAUSE ON HOVER */
-      .circle-container:has(.item:hover) {
-        animation-play-state: paused;
-        box-shadow: 0 0 60px 12px var(--primary-color) inset,
-          0 0 21px 15px var(--body-color);
-      }
-
-      .circle-container:has(.item:hover) .item {
-        animation-play-state: paused;
-      }
-
-      /* CENTER REACTION */
-      .circle-container:has(.item:hover)::before {
-        transform: scale(4);
-        border-color: var(--secondary-color);
-        box-shadow: 0 0 15px var(--secondary-color),
-          0 0 15px var(--primary-color) inset;
-      }
-
-      /* Outer ring reaction */
-      .circle-container:has(.item:hover)::after {
-        transform: scale(0.3);
-        border-width: 18px;
-        border-color: var(--secondary-color);
-        box-shadow: 0 0 var(--size) var(--secondary-color) inset;
-      }
-
-      /* KEYFRAMES */
-      @keyframes spin-out {
-        from {
-          rotate: 0deg;
-        }
-        to {
-          rotate: 360deg;
-        }
-      }
-
-      @keyframes spin-in {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .center-img {
-        width: 200px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 5;
-      }
-    </style>
-
-    <script>
-      // Mobile menu toggle
-      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-      const menu = document.getElementById("headerMenu");
-
-      mobileMenuToggle.addEventListener("click", function () {
-        menu.classList.toggle("active");
-      });
-
-      // Logo swap on scroll
-      window.addEventListener("scroll", function () {
-        const whiteLogo = document.querySelector(".logo-white");
-        const blackLogo = document.querySelector(".logo-dark");
-
-        if (window.scrollY > 50) {
-          whiteLogo.style.display = "none";
-          blackLogo.style.display = "block";
-        } else {
-          whiteLogo.style.display = "block";
-          blackLogo.style.display = "none";
-        }
-      });
-    </script>
 
     <!--  Page Wrapper -->
     <div class="page-wrapper overflow-hidden">
@@ -503,7 +195,7 @@
                   <img src="../assets/images/logos/rr-fav.png" />
                 </div>
                 <div class="item">
-                  <img src="../assets/images/logos/RR-logo.png" />
+                  <img src="../assets/images/logos/RR-fav icon -1.png" />
                 </div>
               </div>
             </div>
@@ -2534,6 +2226,38 @@
             statusBox.innerHTML = "Something went wrong.";
           }
         });
+    </script>
+    <script>
+      const menuToggle = document.getElementById("mobileMenuToggle");
+      const menu = document.getElementById("headerMenu");
+
+      const dropdownBtn = document.querySelector("#productsMenu .dropdown-btn");
+      const dropdownMenu = document.querySelector(
+        "#productsMenu .dropdown-menu-custom"
+      );
+      const dropdownArrow = document.querySelector(".dropdown-arrow");
+
+      // Toggle mobile sidebar
+      menuToggle.addEventListener("click", () => {
+        menu.classList.toggle("active");
+      });
+
+      // Mobile dropdown toggle
+      dropdownBtn.addEventListener("click", (e) => {
+        if (window.innerWidth <= 991) {
+          e.preventDefault();
+          dropdownMenu.classList.toggle("show");
+          dropdownArrow.classList.toggle("rotate");
+        }
+      });
+
+      // Reset on resize desktop
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 992) {
+          dropdownMenu.classList.remove("show");
+          dropdownArrow.classList.remove("rotate");
+        }
+      });
     </script>
   </body>
 </html>

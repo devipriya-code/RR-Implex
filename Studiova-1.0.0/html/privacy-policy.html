@@ -15,186 +15,161 @@
     />
     <link rel="stylesheet" href="../assets/libs/aos-master/dist/aos.css" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
   </head>
 
   <body>
-    <!-- Header -->
     <header
+      id="mainHeader"
       class="header border-4 border-primary border-top position-fixed start-0 top-0 w-100"
+      style="transition: all 0.3s ease; z-index: 999"
     >
       <div class="container">
         <div
-          class="header-wrapper d-flex align-items-center justify-content-between"
+          class="header-wrapper d-flex align-items-center justify-content-between py-2"
         >
+          <!-- Logo -->
           <div class="logo">
             <a href="index.html" class="logo-white">
               <img
                 src="../assets/images/logos/RR-logo.png"
                 alt="logo"
                 class="img-fluid"
+                style="width: 150px; height: 60px"
               />
             </a>
-            <a href="index.html" class="logo-dark">
+            <a href="index.html" class="logo-dark" style="display: none">
               <img
                 src="../assets/images/logos/Asset 5@4x[1].png"
                 alt="logo"
                 class="img-fluid"
+                style="width: 180px; height: 60px"
               />
             </a>
           </div>
-          <div class="d-flex align-items-center gap-4">
-            <div class="btn-group">
-              <button
-                class="btn btn-secondary toggle-menu round-45 p-2 d-flex align-items-center justify-content-center bg-white rounded-circle"
-                type="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="true"
-                aria-expanded="false"
+
+          <!-- Hamburger Icon -->
+          <div class="menu-toggle" id="mobileMenuToggle">&#9776;</div>
+
+          <!-- Menu -->
+          <ul
+            id="headerMenu"
+            class="d-flex align-items-center gap-4 list-unstyled mb-0"
+            style="display: none"
+          >
+            <li class="menu-item">
+              <a href="index.html" style="color: white">
+                Home
+                <img
+                  src="../assets/images/svgs/primary-leaf.svg"
+                  alt=""
+                  class="spin-icon"
+                />
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="about-us.html" style="color: white">
+                About
+                <img
+                  src="../assets/images/svgs/primary-leaf.svg"
+                  alt=""
+                  class="spin-icon"
+                />
+              </a>
+            </li>
+            <li class="menu-item dropdown position-relative">
+              <a
+                href="javascript:void(0)"
+                class="d-flex align-items-center gap-2"
+                style="color: white"
               >
+                Products
                 <iconify-icon
-                  icon="solar:hamburger-menu-line-duotone"
-                  class="menu-icon fs-8 text-dark"
+                  icon="mdi:chevron-down"
+                  class="dropdown-arrow"
+                  style="font-size: 18px"
                 ></iconify-icon>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end p-4">
-                <div class="d-flex flex-column gap-6">
-                  <div
-                    class="hstack justify-content-between border-bottom pb-6"
+              </a>
+
+              <ul
+                class="dropdown-menu-custom multi-column-dropdown list-unstyled p-3"
+              >
+                <li>
+                  <a href="#" class="dropdown-item-custom">SINGLE JERSEY</a>
+                </li>
+                <li><a href="#" class="dropdown-item-custom">AIRTEX</a></li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">INTERLOCK KNITS</a>
+                </li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">TRANSFER KNITS</a>
+                </li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">AUTO STRIPER</a>
+                </li>
+                <li><a href="#" class="dropdown-item-custom">JACQUARD</a></li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">LYCRA FABRICS</a>
+                </li>
+                <li><a href="#" class="dropdown-item-custom">LOOP KNIT</a></li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">ALL OVER PRINTS</a>
+                </li>
+                <li><a href="#" class="dropdown-item-custom">SLUB</a></li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">COLOUR MELANGES</a>
+                </li>
+                <li><a href="#" class="dropdown-item-custom">GRINDLE</a></li>
+                <li>
+                  <a href="#" class="dropdown-item-custom"
+                    >RECYCLED OE FABRIC</a
                   >
-                    <p class="mb-0 fs-5 text-dark">Menu</p>
-                    <button
-                      type="button"
-                      class="btn-close opacity-75"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="d-flex flex-column gap-3">
-                    <ul
-                      class="header-menu list-unstyled mb-0 d-flex flex-column gap-2"
-                    >
-                      <li class="header-item">
-                        <a
-                          href="index.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />Home</a
-                        >
-                      </li>
-                      <li class="header-item">
-                        <a
-                          href="about-us.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />About</a
-                        >
-                      </li>
-                      <li class="header-item">
-                        <a
-                          href="projects.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />Projects</a
-                        >
-                      </li>
-                      <li class="header-item">
-                        <a
-                          href="blog.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />Blog</a
-                        >
-                      </li>
-                      <li class="header-item">
-                        <a
-                          href="index.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />Services</a
-                        >
-                      </li>
-                      <li class="header-item">
-                        <a
-                          href="contact.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />Contact</a
-                        >
-                      </li>
-                      <li class="header-item">
-                        <a
-                          href="index.html"
-                          class="header-link hstack gap-2 fs-7 fw-bold text-dark"
-                          ><img
-                            src="../assets/images/svgs/secondary-leaf.svg"
-                            alt=""
-                            width="20"
-                            height="20"
-                            class="img-fluid animate-spin"
-                          />Docs</a
-                        >
-                      </li>
-                    </ul>
-                    <div class="hstack gap-3">
-                      <a
-                        href="sign-in.html"
-                        class="btn btn-outline-light fs-6 bg-white px-3 py-2 text-dark w-50 hstack justify-content-center"
-                        >Sign In</a
-                      >
-                      <a
-                        href="sign-up.html"
-                        class="btn btn-dark text-white fs-6 bg-dark px-3 py-2 w-50 hstack justify-content-center"
-                        >Sign Up</a
-                      >
-                    </div>
-                  </div>
-                  <div>
-                    <a class="text-dark" href="tel:+1-212-456-7890"
-                      >+1-212-456-7890</a
-                    >
-                    <a
-                      class="fs-8 text-dark fw-bold"
-                      href="mailto:info@wrappixel.com"
-                      >info@wrappixel.com</a
-                    >
-                  </div>
-                </div>
+                </li>
+                <li>
+                  <a href="#" class="dropdown-item-custom">TENCIL KNITS</a>
+                </li>
+                <li>
+                  <a href="#" class="dropdown-item-custom"
+                    >VARIOUS OTHER FANCY FABRICS</a
+                  >
+                </li>
               </ul>
-            </div>
-          </div>
+            </li>
+
+            <li class="menu-item">
+              <a href="blog.html" style="color: white">
+                Blog
+                <img
+                  src="../assets/images/svgs/primary-leaf.svg"
+                  alt=""
+                  class="spin-icon"
+                />
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="services.html" style="color: white">
+                Services
+                <img
+                  src="../assets/images/svgs/primary-leaf.svg"
+                  alt=""
+                  class="spin-icon"
+                />
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="contact.html" style="color: white">
+                Contact
+                <img
+                  src="../assets/images/svgs/primary-leaf.svg"
+                  alt=""
+                  class="spin-icon"
+                />
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
-
     <!--  Page Wrapper -->
     <div class="page-wrapper overflow-hidden">
       <!--  Banner Section -->
@@ -450,5 +425,19 @@
     <script src="../assets/js/custom.js"></script>
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script>
+      const dropdown = document.getElementById("productsDropdown");
+      const menu = document.getElementById("productsMenu");
+      const arrow = document.getElementById("dropdownArrow");
+
+      dropdown.addEventListener("click", () => {
+        // Toggle dropdown
+        const isOpen = menu.style.display === "block";
+        menu.style.display = isOpen ? "none" : "block";
+
+        // Rotate arrow
+        arrow.classList.toggle("rotate-arrow");
+      });
+    </script>
   </body>
 </html>
