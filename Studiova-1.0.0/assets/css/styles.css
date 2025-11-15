@@ -16814,3 +16814,417 @@ ul {
   font-weight: normal;
   border-radius: 50%;
 }
+@keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spin-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 6px;
+        vertical-align: middle;
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      /* ---------- MOBILE + TABLET ---------- */
+      @media (max-width: 991px) {
+        .menu-toggle {
+          display: block;
+          font-size: 28px;
+          color: white;
+          cursor: pointer;
+        }
+
+        #headerMenu {
+          display: none !important;
+          flex-direction: column;
+          align-items: flex-start; /* keep items aligned to left inside menu */
+          background-color: #111;
+          padding: 20px;
+          border-radius: 12px;
+          position: absolute;
+          top: 100%;
+          right: 10px; /* move menu to right */
+          width: 80%;
+          max-width: 300px;
+          z-index: 999;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          transition: all 0.3s ease;
+        }
+
+        #headerMenu.active {
+          display: flex !important;
+          animation: slideDownRight 0.4s ease forwards;
+        }
+
+        @keyframes slideDownRight {
+          from {
+            opacity: 0;
+            transform: translateY(-10px) translateX(50px); /* slide from right */
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) translateX(0);
+          }
+        }
+
+        /* Spinner appears only on hover */
+        .menu-item a:hover .spin-icon {
+          opacity: 1;
+          animation: spin 1.5s linear infinite;
+        }
+      }
+
+      /* ---------- DESKTOP ---------- */
+      @media (min-width: 992px) {
+        @media (min-width: 769px) {
+          #headerMenu .menu-item a {
+            font-size: 25px; /* increase for desktop */
+            font-weight: 500; /* optional: make it bolder */
+          }
+        }
+
+        .menu-toggle {
+          display: none;
+        }
+        #headerMenu {
+          display: flex !important;
+        }
+        .spin-icon {
+          display: none !important;
+        }
+      }
+      :root {
+        --body-color: #010c15;
+        --text-color: #726f77;
+        --primary-color: rgba(223, 31, 14);
+        --secondary-color: rgba(223, 31, 14);
+
+        --size: 120px;
+        --circle-radius: 210px; /* distance from center */
+        --duration: 30s;
+      }
+
+      .circle-container {
+        width: calc(var(--size) * 3);
+        height: calc(var(--size) * 3);
+        border-radius: 50%;
+        border: 6px solid var(--primary-color);
+        animation: spin-out var(--duration) linear infinite;
+        transition: box-shadow 0.3s ease-in-out;
+        pointer-events: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        margin-top: 80px;
+      }
+
+      /* ROTATING ITEMS */
+      .circle-container .item {
+        position: absolute;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        animation: spin-in var(--duration) linear infinite reverse;
+        pointer-events: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* FIXED POSITIONS (6 items = 360/6 = 60 degrees each) */
+      .circle-container .item:nth-child(1) {
+        transform: rotate(0deg) translate(var(--circle-radius)) rotate(0deg);
+      }
+      .circle-container .item:nth-child(2) {
+        transform: rotate(60deg) translate(var(--circle-radius)) rotate(-60deg);
+      }
+      .circle-container .item:nth-child(3) {
+        transform: rotate(120deg) translate(var(--circle-radius))
+          rotate(-120deg);
+      }
+      .circle-container .item:nth-child(4) {
+        transform: rotate(180deg) translate(var(--circle-radius))
+          rotate(-180deg);
+      }
+      .circle-container .item:nth-child(5) {
+        transform: rotate(240deg) translate(var(--circle-radius))
+          rotate(-240deg);
+      }
+      .circle-container .item:nth-child(6) {
+        transform: rotate(300deg) translate(var(--circle-radius))
+          rotate(-300deg);
+      }
+
+      /* IMAGES */
+      .circle-container .item img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 3px solid var(--primary-color);
+        transition: 0.3s ease-in-out;
+      }
+
+      /* HOVER ZOOM */
+      .circle-container .item:hover img {
+        scale: 1.6;
+        border-color: var(--secondary-color);
+        z-index: 50;
+        box-shadow: 0 0 1rem var(--secondary-color);
+      }
+
+      /* Dim all other items */
+      .circle-container .item:hover ~ .item img,
+      .circle-container .item:has(~ .item:hover) img {
+        scale: 0.5;
+      }
+
+      /* CENTER SQUARE (same as original) */
+      .circle-container::before {
+        content: "";
+        position: absolute;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 0.25rem;
+        border: 6px solid var(--primary-color);
+        background: transparent;
+        transition: 0.3s ease-in-out;
+      }
+
+      /* OUTER EFFECT */
+      .circle-container::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        border: 6px solid var(--primary-color);
+        animation: spin-in var(--duration) linear infinite reverse;
+        transition: 0.3s ease-in-out;
+      }
+
+      /* PAUSE ON HOVER */
+      .circle-container:has(.item:hover) {
+        animation-play-state: paused;
+        box-shadow: 0 0 60px 12px var(--primary-color) inset,
+          0 0 21px 15px var(--body-color);
+      }
+
+      .circle-container:has(.item:hover) .item {
+        animation-play-state: paused;
+      }
+
+      /* CENTER REACTION */
+      .circle-container:has(.item:hover)::before {
+        transform: scale(4);
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 15px var(--secondary-color),
+          0 0 15px var(--primary-color) inset;
+      }
+
+      /* Outer ring reaction */
+      .circle-container:has(.item:hover)::after {
+        transform: scale(0.3);
+        border-width: 18px;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 var(--size) var(--secondary-color) inset;
+      }
+
+      /* KEYFRAMES */
+      @keyframes spin-out {
+        from {
+          rotate: 0deg;
+        }
+        to {
+          rotate: 360deg;
+        }
+      }
+
+      @keyframes spin-in {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .center-img {
+        width: 200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 5;
+      }
+      /* Show dropdown on hover */
+      /* Dropdown container */
+ /* Ensure the header itself is visible (remove any inline display:none) */
+  #headerMenu { display:flex !important; }
+
+  /* Base dropdown hidden */
+  .menu-item.dropdown { position: relative; }
+  .dropdown-menu-custom {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 12px;
+    display: none;              /* hidden by default */
+    z-index: 9999;
+    min-width: 420px;
+  }
+
+  /* More specific selector so other rules don't override easily */
+  ul#headerMenu > li.menu-item.dropdown > ul.dropdown-menu-custom {
+    display: none;
+  }
+
+  /* Show on hover (desktop) */
+  ul#headerMenu > li.menu-item.dropdown:hover > ul.dropdown-menu-custom {
+    display: grid;
+  }
+
+  /* 3 columns */
+  .multi-column-dropdown {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 24px;
+    display: grid; /* will be switched to grid when shown by hover rule above */
+  }
+
+  .dropdown-item-custom {
+    display: block;
+    padding: 6px 4px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .dropdown-item-custom:hover { color: #ddd; }
+
+  /* Arrow transition + rotate on hover */
+  .dropdown-arrow { transition: transform 0.25s ease; display:inline-block; margin-left:6px; }
+  ul#headerMenu > li.menu-item.dropdown:hover > a .dropdown-arrow { transform: rotate(180deg); }
+
+  /* Small responsive: make dropdown full-width on small screens */
+ /* --- MOBILE: dropdown hidden by default --- */
+@media (max-width: 991px) {
+  .dropdown-menu-custom {
+    display: none !important;
+  }
+
+  /* prevent desktop hover rules from breaking mobile */
+  ul#headerMenu > li.menu-item.dropdown:hover > ul.dropdown-menu-custom {
+    display: none !important;
+  }
+
+  /* arrow rotation on click (JS adds .rotate) */
+  .dropdown-arrow.rotate {
+    transform: rotate(180deg);
+  }
+}
+
+/* --- DESKTOP: show on hover --- */
+@media (min-width: 992px) {
+  ul#headerMenu > li.menu-item.dropdown:hover > ul.dropdown-menu-custom {
+    display: grid !important;
+  }
+}
+/* RESET */
+.main-menu { display:flex; gap:30px; align-items:center; }
+
+/* HIDE MENU ON MOBILE */
+.menu-toggle {
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  display: none;
+}
+
+#headerMenu {
+  display: flex;
+}
+
+/* DROPDOWN BASE */
+.dropdown-menu-custom {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: black;
+  padding: 15px;
+  border-radius: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  min-width: 400px;
+  z-index: 99999;
+}
+
+.menu-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.dropdown-arrow {
+  transition: 0.3s;
+  margin-left: 6px;
+}
+
+/* DESKTOP BEHAVIOR */
+@media (min-width: 992px) {
+  .menu-toggle { display:none; }
+  #headerMenu { display:flex !important; }
+  .dropdown:hover > .dropdown-menu-custom {
+    display: grid !important;
+  }
+  .dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+}
+
+/* MOBILE BEHAVIOR */
+@media (max-width: 991px) {
+
+  .menu-toggle { display:block; }
+
+  #headerMenu {
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    width: 80%;
+    max-width: 300px;
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #headerMenu.active {
+    display: flex !important;
+  }
+
+  /* Dropdown expands in mobile */
+  .dropdown-menu-custom {
+    position: static;
+    display: none;
+    grid-template-columns: 1fr !important;
+    min-width: 0;
+    padding-left: 10px;
+  }
+
+  .dropdown-menu-custom.show {
+    display: grid !important;
+  }
+
+  .dropdown-arrow.rotate {
+    transform: rotate(180deg);
+  }
+}
