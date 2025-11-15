@@ -35,7 +35,7 @@
                 src="../assets/images/logos/RR-logo.png"
                 alt="logo"
                 class="img-fluid"
-                style="width: 180px; height: 60px"
+                style="width: 150px; height: 60px"
               />
             </a>
             <a href="index.html" class="logo-dark" style="display: none">
@@ -141,7 +141,6 @@
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
 
-  
       /* ---------- MOBILE + TABLET ---------- */
       @media (max-width: 991px) {
         .menu-toggle {
@@ -209,6 +208,168 @@
         .spin-icon {
           display: none !important;
         }
+      }
+      :root {
+        --body-color: #010c15;
+        --text-color: #726f77;
+        --primary-color: rgba(223, 31, 14);
+        --secondary-color: rgba(223, 31, 14);
+
+        --size: 120px;
+        --circle-radius: 210px; /* distance from center */
+        --duration: 30s;
+      }
+
+      .circle-container {
+        width: calc(var(--size) * 3);
+        height: calc(var(--size) * 3);
+        border-radius: 50%;
+        border: 6px solid var(--primary-color);
+        animation: spin-out var(--duration) linear infinite;
+        transition: box-shadow 0.3s ease-in-out;
+        pointer-events: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        margin-top: 80px;
+      }
+
+      /* ROTATING ITEMS */
+      .circle-container .item {
+        position: absolute;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        animation: spin-in var(--duration) linear infinite reverse;
+        pointer-events: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* FIXED POSITIONS (6 items = 360/6 = 60 degrees each) */
+      .circle-container .item:nth-child(1) {
+        transform: rotate(0deg) translate(var(--circle-radius)) rotate(0deg);
+      }
+      .circle-container .item:nth-child(2) {
+        transform: rotate(60deg) translate(var(--circle-radius)) rotate(-60deg);
+      }
+      .circle-container .item:nth-child(3) {
+        transform: rotate(120deg) translate(var(--circle-radius))
+          rotate(-120deg);
+      }
+      .circle-container .item:nth-child(4) {
+        transform: rotate(180deg) translate(var(--circle-radius))
+          rotate(-180deg);
+      }
+      .circle-container .item:nth-child(5) {
+        transform: rotate(240deg) translate(var(--circle-radius))
+          rotate(-240deg);
+      }
+      .circle-container .item:nth-child(6) {
+        transform: rotate(300deg) translate(var(--circle-radius))
+          rotate(-300deg);
+      }
+
+      /* IMAGES */
+      .circle-container .item img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 3px solid var(--primary-color);
+        transition: 0.3s ease-in-out;
+      }
+
+      /* HOVER ZOOM */
+      .circle-container .item:hover img {
+        scale: 1.6;
+        border-color: var(--secondary-color);
+        z-index: 50;
+        box-shadow: 0 0 1rem var(--secondary-color);
+      }
+
+      /* Dim all other items */
+      .circle-container .item:hover ~ .item img,
+      .circle-container .item:has(~ .item:hover) img {
+        scale: 0.5;
+      }
+
+      /* CENTER SQUARE (same as original) */
+      .circle-container::before {
+        content: "";
+        position: absolute;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 0.25rem;
+        border: 6px solid var(--primary-color);
+        background: transparent;
+        transition: 0.3s ease-in-out;
+      }
+
+      /* OUTER EFFECT */
+      .circle-container::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        border: 6px solid var(--primary-color);
+        animation: spin-in var(--duration) linear infinite reverse;
+        transition: 0.3s ease-in-out;
+      }
+
+      /* PAUSE ON HOVER */
+      .circle-container:has(.item:hover) {
+        animation-play-state: paused;
+        box-shadow: 0 0 60px 12px var(--primary-color) inset,
+          0 0 21px 15px var(--body-color);
+      }
+
+      .circle-container:has(.item:hover) .item {
+        animation-play-state: paused;
+      }
+
+      /* CENTER REACTION */
+      .circle-container:has(.item:hover)::before {
+        transform: scale(4);
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 15px var(--secondary-color),
+          0 0 15px var(--primary-color) inset;
+      }
+
+      /* Outer ring reaction */
+      .circle-container:has(.item:hover)::after {
+        transform: scale(0.3);
+        border-width: 18px;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 var(--size) var(--secondary-color) inset;
+      }
+
+      /* KEYFRAMES */
+      @keyframes spin-out {
+        from {
+          rotate: 0deg;
+        }
+        to {
+          rotate: 360deg;
+        }
+      }
+
+      @keyframes spin-in {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .center-img {
+        width: 200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 5;
       }
     </style>
 
@@ -302,7 +463,6 @@
         </div>
       </section>
 
-      <!--  Stats & Facts Section -->
       <section
         class="stats-facts py-5 py-lg-11 py-xl-12 position-relative overflow-hidden"
       >
@@ -323,7 +483,31 @@
                 <span class="badge text-bg-dark">Stats & facts</span>
               </div>
             </div>
-            <div class="col-xl-8 col-xxl-7">
+            <div
+              class="position-absolute start-0"
+              data-aos="zoom-in"
+              data-aos-delay="100"
+              data-aos-duration="1000"
+            >
+              <img
+                src="../assets/images/backgrounds/stats-facts-bg.svg"
+                alt=""
+                class="img-fluid center-img"
+              />
+              <!-- Rotating Circle Gallery (Left Side Option B) -->
+              <div class="circle-container">
+                <div class="item">
+                  <img src="../assets/images/logos/download (10).jpeg" />
+                </div>
+                <div class="item">
+                  <img src="../assets/images/logos/rr-fav.png" />
+                </div>
+                <div class="item">
+                  <img src="../assets/images/logos/RR-logo.png" />
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8 col-xxl-7 position-relative">
               <div class="d-flex flex-column gap-9">
                 <div class="row">
                   <div class="col-xxl-8">
@@ -408,20 +592,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="position-absolute bottom-0 start-0"
-          data-aos="zoom-in"
-          data-aos-delay="100"
-          data-aos-duration="1000"
-        >
-          <img
-            src="../assets/images/backgrounds/stats-facts-bg.svg"
-            alt=""
-            class="img-fluid"
-          />
-        </div>
       </section>
-
       <!--  Featured Projects Section -->
       <section class="featured-projects py-5 py-lg-11 py-xl-12 bg-light-gray">
         <div class="d-flex flex-column gap-5 gap-xl-11">
@@ -2168,37 +2339,34 @@
                 </p>
               </div>
               <div class="col-xl-8">
-                <form
-                  class="d-flex flex-column gap-7"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                  data-aos-duration="1000"
-                >
+                <form id="contactForm" class="d-flex flex-column gap-7">
                   <div>
                     <input
                       type="text"
+                      name="name"
                       class="form-control border-bottom border-dark"
-                      id="formGroupExampleInput"
                       placeholder="Name"
                     />
                   </div>
+
                   <div>
                     <input
                       type="email"
+                      name="email"
                       class="form-control border-bottom border-dark"
-                      id="exampleInputEmail1"
                       placeholder="Email"
-                      aria-describedby="emailHelp"
                     />
                   </div>
+
                   <div>
                     <textarea
+                      name="message"
                       class="form-control border-bottom border-dark"
-                      id="exampleFormControlTextarea1"
                       placeholder="Tell us about your project"
                       rows="3"
                     ></textarea>
                   </div>
+
                   <button
                     type="submit"
                     class="btn w-100 justify-content-center"
@@ -2209,6 +2377,8 @@
                       class="btn-icon bg-white text-dark round-52 rounded-circle hstack justify-content-center fs-7 shadow-sm"
                     ></iconify-icon>
                   </button>
+
+                  <p id="formStatus" style="margin-top: 10px"></p>
                 </form>
               </div>
             </div>
@@ -2332,5 +2502,38 @@
     <script src="../assets/js/custom.js"></script>
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const form = e.target;
+          const formData = new FormData(form);
+          const statusBox = document.getElementById("formStatus");
+          statusBox.innerHTML = "Sending...";
+
+          try {
+            const response = await fetch("send.php", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+              statusBox.style.color = "green";
+              statusBox.innerHTML = result.message;
+              form.reset();
+            } else {
+              statusBox.style.color = "red";
+              statusBox.innerHTML = result.message;
+            }
+          } catch (err) {
+            statusBox.style.color = "red";
+            statusBox.innerHTML = "Something went wrong.";
+          }
+        });
+    </script>
   </body>
 </html>

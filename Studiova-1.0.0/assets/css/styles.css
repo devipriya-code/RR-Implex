@@ -52,7 +52,7 @@
   --bs-danger-text-emphasis: #58151c;
   --bs-light-text-emphasis: #495057;
   --bs-dark-text-emphasis: #495057;
-  --bs-primary-bg-subtle: #ee7171;
+  --bs-primary-bg-subtle: rgba(223, 31, 14);
   --bs-secondary-bg-subtle: #d2d4d5;
   --bs-success-bg-subtle: #d1e7dd;
   --bs-info-bg-subtle: #cff4fc;
@@ -16790,3 +16790,27 @@ ul {
   color: var(--bs-dark);
   background-color: var(--bs-white);
 }/*# sourceMappingURL=styles.css.map */
+.rounded {
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 60px;
+}
+.rounded-circle{
+  align-items: center;
+}
+.btn-lg-square {
+  width: 56px;
+  height: 56px;
+}
+.btn-square,
+.btn-sm-square,
+.btn-md-square,
+.btn-lg-square,
+.btn-xl-square {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  border-radius: 50%;
+}
